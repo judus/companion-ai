@@ -68,7 +68,7 @@ return [
             'host' => env('STACKHERO_MYSQL_HOST'),
             'port' => 3306,
             'username' => env('STACKHERO_MYSQL_USER'),
-            'password' => env('STACKHERO_MYSQL_PASSWORD'),
+            'password' => env('STACKHERO_MYSQL_ROOT_PASSWORD'),
             'database' => env('STACKHERO_MYSQL_USER'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
