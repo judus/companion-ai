@@ -35,7 +35,7 @@ Route::post('/login', [LoginController::class, 'login'])->middleware(['web']);
 
 Route::get('/user', function (Request $request) {
     return $request->user() ?? null;
-})->middleware(['web']);;
+});
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
