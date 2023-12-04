@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => env('APP_ENV') === 'production' ? [env('PRODUCTION_DOMAIN', '')] : ['*'],
+    'allowed_origins' => env('APP_ENV') === 'production' ? [env('SPA_URL', '')] : ['*'],
 
     'allowed_origins_patterns' => [],
 
