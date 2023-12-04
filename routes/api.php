@@ -37,7 +37,7 @@ Route::get('/user', function (Request $request) {
     return $request->user() ?? null;
 });
 
-Route::group(['middleware' => ['web', 'auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/chat/{session}', [ChatController::class, 'getLatestMessages']);
     Route::post('/chat/{session}', [ChatController::class, 'sendMessage']);
     Route::post('/chat/retry', [ChatController::class, 'retry']);
