@@ -33,11 +33,14 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 Route::post('/register', [RegisterController::class, 'register'])->middleware(['web']);
 Route::post('/login', [LoginController::class, 'login'])->middleware(['web']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user() ?? null;
-});
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user() ?? null;
+    });
+
     Route::get('/chat/{session}', [ChatController::class, 'getLatestMessages']);
     Route::post('/chat/{session}', [ChatController::class, 'sendMessage']);
     Route::post('/chat/retry', [ChatController::class, 'retry']);

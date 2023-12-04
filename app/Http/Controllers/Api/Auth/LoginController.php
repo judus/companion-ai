@@ -18,8 +18,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
+            $token = Auth::user()->createToken('api-token')->plainTextToken;
 
-            return response()->json(Auth::user(), 200);
+            return response()->json([
+                'user' => Auth::user(),
+                'token' => $token
+                ], 200);
         }
 
         throw ValidationException::withMessages([

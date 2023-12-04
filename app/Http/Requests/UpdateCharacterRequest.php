@@ -39,7 +39,6 @@ class UpdateCharacterRequest extends FormRequest
             'location' => 'nullable|string|max:255',
             'dialogue_style' => 'nullable|string|max:255',
             'prompt' => 'nullable|string',
-            'image_url' => 'nullable|string',
             'is_public' => 'sometimes|boolean',
         ];
     }
