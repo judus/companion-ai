@@ -123,8 +123,10 @@ class ChatController extends Controller
             $this->sessionService->createMessage($response, 'assistant')->save();
 
             $messages = $session->chatMessages()
-                ->orderBy('created_at')
-                ->get();
+                ->where('role', '!=', 'system')
+                ->orderBy('created_at', 'desc')
+                ->limit(100)
+                ->get()->reverse()->values()->collect();
         }
 
         $excludedAttributes = [
