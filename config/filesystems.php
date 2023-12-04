@@ -59,19 +59,19 @@ return [
         'gcs' => [
                 'driver' => 'gcs',
                 // optional: /path/to/service-account.json
-                'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', base_path('service-account.json')),
+                //'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', base_path('service-account.json')),
                 // optional: Array of data that substitutes the .json file (see below)
-//                'key_file' => [
-//                    'type' => env('GOOGLE_CLOUD_ACCOUNT_TYPE'),
-//                    'private_key_id' => env('GOOGLE_CLOUD_PRIVATE_KEY_ID'),
-//                    'private_key' => env('GOOGLE_CLOUD_PRIVATE_KEY'),
-//                    'client_email' => env('GOOGLE_CLOUD_CLIENT_EMAIL'),
-//                    'client_id' => env('GOOGLE_CLOUD_CLIENT_ID'),
-//                    'auth_uri' => env('GOOGLE_CLOUD_AUTH_URI'),
-//                    'token_uri' => env('GOOGLE_CLOUD_TOKEN_URI'),
-//                    'auth_provider_x509_cert_url' => env('GOOGLE_CLOUD_AUTH_PROVIDER_CERT_URL'),
-//                    'client_x509_cert_url' => env('GOOGLE_CLOUD_CLIENT_CERT_URL'),
-//                ],
+                'key_file' => [
+                    'type' => env('GOOGLE_CLOUD_ACCOUNT_TYPE'),
+                    'private_key_id' => env('GOOGLE_CLOUD_PRIVATE_KEY_ID'),
+                    'private_key' => env('GOOGLE_CLOUD_PRIVATE_KEY'),
+                    'client_email' => env('GOOGLE_CLOUD_CLIENT_EMAIL'),
+                    'client_id' => env('GOOGLE_CLOUD_CLIENT_ID'),
+                    'auth_uri' => env('GOOGLE_CLOUD_AUTH_URI'),
+                    'token_uri' => env('GOOGLE_CLOUD_TOKEN_URI'),
+                    'auth_provider_x509_cert_url' => env('GOOGLE_CLOUD_AUTH_PROVIDER_CERT_URL'),
+                    'client_x509_cert_url' => env('GOOGLE_CLOUD_CLIENT_CERT_URL'),
+                ],
                 // optional: is included in key file
                 'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'),
                 'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET'),

@@ -72,13 +72,9 @@ class CreateCharacterImage implements ShouldQueue
 
         $filename = Str::random(24) . '.png';
         $storagePath = 'images/' . $filename; // Define a path in your storage disk
-        Storage::disk('public')->put($storagePath, $imageContent);
+        Storage::disk('gcs')->put($storagePath, $imageContent);
 
         $character->image_url = $storagePath;
         $character->save();
-
-        $publicUrl = Storage::disk('public')->url($storagePath);
-        $file = Storage::disk('public')->get($storagePath);
-        $type = Storage::disk('public')->mimeType($storagePath);
     }
 }
