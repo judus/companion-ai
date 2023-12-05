@@ -5,6 +5,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,28 +25,21 @@ class ScaleImages extends Command
 
         foreach ($files as $file) {
             $this->info("Processing: $file");
-
-            $image = Image::make(Storage::disk('gcs')->get($file));
-            $filename = basename($file);
-
-            // 128x128 variation
-            $image->resize(240, 240, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            Storage::disk('gcs')->put("images/_240x240/{$filename}", $image->encode('png'));
-
-//            // 128x128 variation
-//            $image->resize(90, 90);
-//            Storage::disk('gcs')->put("images/_90x90/{$filename}", (string)$image->encode('png'));
-//
-//            // 256x256 variation
-//            $image->resize(240, 240);
-//            Storage::disk('gcs')->put("images/_240x240/{$filename}", (string)$image->encode('png'));
-
-            // Add more variations as needed
+            $this->resizeImage($file, 120, 120);
+            $this->resizeImage($file, 480, 480);
         }
 
         $this->info('All images have been processed.');
+    }
+
+    public function resizeImage($storagePath, $width, $height)
+    {
+        $image = Image::make(Storage::disk('gcs')->get($storagePath));
+        $filename = Str::replaceEnd(".png", ".jpg", basename($storagePath));
+        $image->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        Storage::disk('gcs')->put("images/_{$width}x{$height}/{$filename}", $image->encode('jpg'));
     }
 }
