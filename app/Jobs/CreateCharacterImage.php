@@ -86,7 +86,7 @@ class CreateCharacterImage implements ShouldQueue
     {
         $image = Image::make(Storage::disk('gcs')->get($storagePath));
         $filename = basename($image);
-        $image->resize(240, 240, function ($constraint) {
+        $image->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
 
