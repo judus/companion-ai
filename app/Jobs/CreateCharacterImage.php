@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CreateCharacterImage implements ShouldQueue
 {
@@ -67,14 +68,30 @@ class CreateCharacterImage implements ShouldQueue
 
 
         $url = $response->url;
-
         $imageContent = Http::get($url)->body();
 
         $filename = Str::random(24) . '.png';
         $storagePath = 'images/' . $filename; // Define a path in your storage disk
         Storage::disk('gcs')->put($storagePath, $imageContent);
 
+        $this->resizeImage($storagePath, 60, 60);
+        $this->resizeImage($storagePath, 90, 90);
+        $this->resizeImage($storagePath, 240, 240);
+
         $character->image_url = $storagePath;
         $character->save();
     }
+
+    public function resizeImage($storagePath, $width, $height)
+    {
+        $image = Image::make(Storage::disk('gcs')->get($storagePath));
+        $filename = basename($image);
+        $image->resize(240, 240, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        Storage::disk('gcs')->put("images/_{$width}x{$height}/{$filename}", $image->encode('png'));
+    }
+
+
 }
