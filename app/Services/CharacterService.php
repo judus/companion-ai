@@ -77,7 +77,7 @@ class CharacterService
         $request = app(OpenAIRequest::class);
 
         $response = $request->sendMessage("
-            Based on this schema of characters, generate a JSON array for 3 new character:
+            Based on this schema of characters, generate a JSON array for 2 new character:
                 \$table->string('name');
                 \$table->integer('age')->nullable();
                 \$table->string('short_description')->nullable();
@@ -90,10 +90,11 @@ class CharacterService
                 \$table->string('dialogue_style')->nullable();
 
             Instructions:
-            - The Character can not be \"Luna\"
+            - The Character can not be \"Luna\", \"Mortimer\"
             - The character can be anything from person, to animal, to object or vegetable and fruit, to abstract concept.
-            - Make the character interesting and unique. It can be absurd, funny, amorous, serious, dark, menacing, unfriendly or anything else.
-            - A character could be for example, a hat who enjoys hairless heads, or a vegetables like a tomato who fears to became ketchup or animals or a ghost.
+            - Make the character interesting, unique. It can be absurd, funny, amorous, serious, dark, menacing, unfriendly or anything else.
+            - The more absurd the better, be creative and go crazy.
+            - A character could be for example, a hat who enjoys bold heads, or a tomato that fears to become ketchup.
             - The biography should be 3-6 sentences. Mention pivotal events or career highlights and underline traits, quirks and interest.
             - The quirks should be absurd and funny, picked with dark humour
 

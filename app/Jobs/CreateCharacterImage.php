@@ -70,13 +70,13 @@ class CreateCharacterImage implements ShouldQueue
         $url = $response->url;
         $imageContent = Http::get($url)->body();
 
-        $filename = Str::random(24) . '.png';
+        $filename = Str::random(32) . '.png';
         $storagePath = 'images/' . $filename; // Define a path in your storage disk
         Storage::disk('gcs')->put($storagePath, $imageContent);
+        //Storage::disk('gcs')->put($storagePath, $imageContent);
 
-        $this->resizeImage($storagePath, 60, 60);
-        $this->resizeImage($storagePath, 90, 90);
-        $this->resizeImage($storagePath, 240, 240);
+        $this->resizeImage($storagePath, 120, 120);
+        $this->resizeImage($storagePath, 480, 480);
 
         $character->image_url = $storagePath;
         $character->save();
@@ -85,12 +85,12 @@ class CreateCharacterImage implements ShouldQueue
     public function resizeImage($storagePath, $width, $height)
     {
         $image = Image::make(Storage::disk('gcs')->get($storagePath));
-        $filename = basename($storagePath);
+        $filename = Str::replaceEnd(".png", ".jpg", basename($storagePath));
         $image->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
 
-        Storage::disk('gcs')->put("images/_{$width}x{$height}/{$filename}", $image->encode('png'));
+        Storage::disk('gcs')->put("images/_{$width}x{$height}/{$filename}", $image->encode('jpg'));
     }
 
 }
